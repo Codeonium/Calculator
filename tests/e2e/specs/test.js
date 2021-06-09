@@ -9,4 +9,56 @@ describe('calculator', () => {
     cy.get('#number2').click();
     cy.get('.display').should('contain', '2')
   })
+  
+  it('should update the display of the running total', () => {
+    cy.get('#number2').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#number2').click();
+    cy.get('#operator_multiply').click();
+    cy.get('.display').should('contain', '4')
+  })
+  
+  it('should update the display with the result of the operation', () => {
+    cy.get('#number7').click();
+    cy.get('#operator_add').click();
+    cy.get('#number3').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '10')
+  })
+  
+  it('should multiple operations be chained together', () => {
+    cy.get('#number2').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#number2').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#number2').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#number2').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '16')
+  })
+  
+  it('should output as expected for a decimal numbers', () => {
+    cy.get('#number5').click();
+    cy.get('#operator_divide').click();
+    cy.get('#number2').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '2.5')
+  })
+  
+  it('should return error when divided by 0', () => {
+    cy.get('#number2').click();
+    cy.get('#operator_divide').click();
+    cy.get('#number0').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', 'Error')
+  })
+  
+  it('should return zero when multiplied by 0', () => {
+    cy.get('#number2').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#number0').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '0')
+  })
 })
