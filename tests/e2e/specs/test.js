@@ -46,6 +46,25 @@ describe('calculator', () => {
     cy.get('.display').should('contain', '2.5')
   })
   
+  it('should output as expected for negative numbers', () => {
+    cy.get('#number5').click();
+    cy.get('#operator_subtract').click();
+    cy.get('#number7').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '-2')
+  })
+  
+  it('should output as expected for a large number', () => {
+    cy.get('#number9').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#operator_multiply').click();
+    cy.get('#operator_equals').click();
+    cy.get('.display').should('contain', '3.4336838202925124e+30')
+  })
+  
   it('should return error when divided by 0', () => {
     cy.get('#number2').click();
     cy.get('#operator_divide').click();
